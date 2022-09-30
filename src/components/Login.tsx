@@ -1,17 +1,15 @@
 import React, { useState } from "react";
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { login } from "../services/auth.service";
-import { RouteComponentProps } from "react-router-dom";
 
-interface RouterProps {
-  history: string;
-}
+type Props = {}
 
-type Props = RouteComponentProps<RouterProps>;
+const Login: React.FC<Props> = () => {
+  let navigate: NavigateFunction = useNavigate();
 
-const Login: React.FC<Props> = ({ history }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
@@ -36,7 +34,7 @@ const Login: React.FC<Props> = ({ history }) => {
 
     login(username, password).then(
       () => {
-        history.push("/profile");
+        navigate("/profile");
         window.location.reload();
       },
       (error) => {
